@@ -1,6 +1,5 @@
-import { Tooltip, Tag } from 'antd';
+import { Tag } from 'antd';
 import { Settings as ProSettings } from '@ant-design/pro-layout';
-import { QuestionCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import { connect, ConnectProps, SelectLang } from 'umi';
 import { ConnectState } from '@/models/connect';
@@ -53,19 +52,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
         //   //console.log('input', value);
         // }}
       />
-      <Tooltip title="使用文档">
-        <a
-          style={{
-            color: 'inherit',
-          }}
-          target="_blank"
-          href="https://pro.ant.design/docs/getting-started"
-          rel="noopener noreferrer"
-          className={styles.action}
-        >
-          <QuestionCircleOutlined />
-        </a>
-      </Tooltip>
+
       <NoticeIconView />
       <Avatar menu />
       {REACT_APP_ENV && (
