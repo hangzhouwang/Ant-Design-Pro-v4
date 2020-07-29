@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, Tooltip } from 'antd';
+import { Form, Input, Button, Tooltip } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import './index.less';
@@ -10,14 +10,7 @@ const LoginForm = () => {
   };
 
   return (
-    <Form
-      name="normal_login"
-      className="login-form"
-      initialValues={{
-        remember: true,
-      }}
-      onFinish={onFinish}
-    >
+    <Form name="login" className="login-form" onFinish={onFinish}>
       <Form.Item
         name="username"
         rules={[
@@ -27,11 +20,7 @@ const LoginForm = () => {
           },
         ]}
       >
-        <Input
-          prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="请输入用户名"
-          autoComplete="off"
-        />
+        <Input prefix={<UserOutlined />} placeholder="请输入用户名" autoComplete="off" />
       </Form.Item>
       <Form.Item
         name="password"
@@ -42,11 +31,7 @@ const LoginForm = () => {
           },
         ]}
       >
-        <Input
-          prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
-          placeholder="请输入密码"
-        />
+        <Input prefix={<LockOutlined />} type="password" placeholder="请输入密码" />
       </Form.Item>
 
       <Form.Item>
