@@ -32,13 +32,19 @@
     "test:component": "umi test ./src/components",
     "tsc": "tsc"
   },
-  "husky": { "hooks": { "pre-commit": "npm run lint-staged" } },
+
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
     "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",
-    "**/*.{js,jsx,tsx,ts,less,md,json}": ["prettier --write"]
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write"
+    ]
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 10"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
   "dependencies": {
     "@ant-design/icons": "^4.0.0",
     "@ant-design/pro-layout": "^6.0.0",
@@ -62,6 +68,7 @@
     "numeral": "^2.0.6",
     "nzh": "^1.0.3",
     "omit.js": "^1.0.2",
+    "particles-bg": "^2.5.0",
     "path-to-regexp": "2.4.0",
     "prop-types": "^15.5.10",
     "qs": "^6.9.0",
@@ -108,7 +115,9 @@
     "puppeteer-core": "^4.0.1",
     "stylelint": "^13.0.0"
   },
-  "engines": { "node": ">=10.0.0" },
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "checkFiles": [
     "src/**/*.js*",
     "src/**/*.ts*",

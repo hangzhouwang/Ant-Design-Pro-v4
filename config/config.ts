@@ -29,6 +29,10 @@ export default defineConfig({
       component: '../layouts/BlankLayout',
       routes: [
         {
+          path: '/signin',
+          component: './SignIn',
+        },
+        {
           path: '/user',
           component: '../layouts/UserLayout',
           routes: [
@@ -280,6 +284,7 @@ export default defineConfig({
                 },
               ],
             },
+
             {
               component: '404',
             },
