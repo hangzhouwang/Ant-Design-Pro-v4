@@ -52,3 +52,34 @@ ol {
     min-height: 100vh;
   }
 }
+
+::-webkit-scrollbar-thumb {
+  height: 50px;
+  background-color: #ccc;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  height: 50px;
+  background-color: @primary-color;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: #fff;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:active {
+  height: 50px;
+  background-color: @primary-color;
+  border-radius: 4px;
+}
