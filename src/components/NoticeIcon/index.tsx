@@ -84,11 +84,13 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
       );
     });
     return (
-      <Spin spinning={loading} delay={300}>
-        <Tabs className={styles.tabs} onChange={onTabChange}>
-          {panes}
-        </Tabs>
-      </Spin>
+      <>
+        <Spin spinning={loading} delay={300}>
+          <Tabs className={styles.tabs} onChange={onTabChange}>
+            {panes}
+          </Tabs>
+        </Spin>
+      </>
     );
   };
 
