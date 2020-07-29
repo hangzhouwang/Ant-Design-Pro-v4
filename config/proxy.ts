@@ -8,7 +8,7 @@
 export default {
   dev: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: 'http://laravel-antd.test',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },

@@ -29,8 +29,8 @@ export default defineConfig({
       component: '../layouts/BlankLayout',
       routes: [
         {
-          path: '/signin',
-          component: './SignIn',
+          path: '/login',
+          component: './Login',
         },
         {
           path: '/user',

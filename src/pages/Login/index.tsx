@@ -1,12 +1,13 @@
-import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
+import { MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { Link, SelectLang, useIntl, ConnectProps, connect } from 'umi';
+import { SelectLang, useIntl, ConnectProps, connect } from 'umi';
 import React from 'react';
 import { ConnectState } from '@/models/connect';
 
 import ParticlesBg from 'particles-bg';
 
 import styles from './index.less';
+import LoginForm from './components/LoginForm';
 
 export interface UserLayoutProps extends Partial<ConnectProps> {
   breadcrumbNameMap: {
@@ -14,7 +15,7 @@ export interface UserLayoutProps extends Partial<ConnectProps> {
   };
 }
 
-const SignIn: React.FC<UserLayoutProps> = (props) => {
+const Login: React.FC<UserLayoutProps> = (props) => {
   const {
     route = {
       routes: [],
@@ -41,26 +42,19 @@ const SignIn: React.FC<UserLayoutProps> = (props) => {
         <title>{title}</title>
         <meta name="description" content={title} />
       </Helmet>
-
+      <ParticlesBg type="lines" />
       <div className={styles.container}>
-        <ParticlesBg type="lines" />
         <div className={styles.lang}>
           <SelectLang />
         </div>
-        <div className={styles.content}>
-          <div className={styles.top}>
-            <div className={styles.header}>
-              <Link to="/">
-                <span className={styles.title}>Ant Design</span>
-              </Link>
-            </div>
-            <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
-          </div>
-          {children}
+
+        <div className={styles.loginContainer}>
+          <h2>欢迎登录后台</h2>
+          <LoginForm />
         </div>
       </div>
     </HelmetProvider>
   );
 };
 
-export default connect(({ settings }: ConnectState) => ({ ...settings }))(SignIn);
+export default connect(({ settings }: ConnectState) => ({ ...settings }))(Login);
