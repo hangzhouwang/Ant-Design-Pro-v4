@@ -44,10 +44,6 @@ const Login: React.FC<UserLayoutProps> = (props) => {
       </Helmet>
       <ParticlesBg type="lines" />
       <div className={styles.container}>
-        <div className={styles.lang}>
-          <SelectLang />
-        </div>
-
         <div className={styles.loginContainer}>
           <h2>欢迎登录后台</h2>
           <LoginForm />
