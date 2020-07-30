@@ -1,11 +1,20 @@
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Menu, Spin } from 'antd';
+import {
+  LogoutOutlined,
+  SettingOutlined,
+  UserOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
+import { Avatar, Menu, Spin, Modal } from 'antd';
 import React from 'react';
 import { history, ConnectProps, connect } from 'umi';
 import { ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
-import HeaderDropdown from '../HeaderDropdown';
+
 import styles from './index.less';
+import { getPageQuery } from '@/utils/utils';
+import LocalStore from '@/utils/LocalStore';
+import { stringify } from 'qs';
+import HeaderDropdown from '../HeaderDropdown';
 
 export interface GlobalHeaderRightProps extends Partial<ConnectProps> {
   currentUser?: CurrentUser;
@@ -22,18 +31,34 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
     const { key } = event;
 
     if (key === 'logout') {
-      const { dispatch } = this.props;
-
-      if (dispatch) {
-        dispatch({
-          type: 'login/logout',
-        });
-      }
-
+      Modal.confirm({
+        title: '请确认',
+        icon: <ExclamationCircleOutlined />,
+        content: '您确认要退出系统吗?',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => {
+          this.logOut();
+        },
+      });
       return;
     }
 
     history.push(`/account/${key}`);
+  };
+
+  logOut = () => {
+    const { redirect } = getPageQuery();
+    if (window.location.pathname !== '/login' && !redirect) {
+      LocalStore.remove('token');
+      LocalStore.remove('authority');
+      history.replace({
+        pathname: '/login',
+        search: stringify({
+          redirect: window.location.href,
+        }),
+      });
+    }
   };
 
   render(): React.ReactNode {

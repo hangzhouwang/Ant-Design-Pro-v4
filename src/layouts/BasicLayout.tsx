@@ -17,7 +17,7 @@ import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
 import { getAuthorityFromRouter } from '@/utils/utils';
-import logo from '../assets/logo.png';
+import logo from '@/assets/logo.png';
 
 const noMatch = (
   <Result
@@ -26,7 +26,7 @@ const noMatch = (
     subTitle="对不起，您没有权限访问此页面."
     extra={
       <Button type="primary">
-        <Link to="/user/login">登 录</Link>
+        <Link to="/login">登 录</Link>
       </Button>
     }
   />
@@ -94,20 +94,15 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       pathname: '/',
     },
   } = props;
-  /**
-   * constructor
-   */
 
   useEffect(() => {
     if (dispatch) {
-      dispatch({
+      // models/user.ts
+      /*  dispatch({
         type: 'user/fetchCurrent',
-      });
+      }); */
     }
   }, []);
-  /**
-   * init variables
-   */
 
   const handleMenuCollapse = (payload: boolean): void => {
     if (dispatch) {
@@ -121,6 +116,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
   const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
     authority: undefined,
   };
+
   const { formatMessage } = useIntl();
   return (
     <>

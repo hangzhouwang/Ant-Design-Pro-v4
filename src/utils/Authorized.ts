@@ -13,7 +13,7 @@ const reloadAuthorized = (): void => {
  * hard code
  * block need it。
  */
-window.reloadAuthorized = reloadAuthorized;
+(window as any).reloadAuthorized = reloadAuthorized;
 
 export { reloadAuthorized };
 export default Authorized;

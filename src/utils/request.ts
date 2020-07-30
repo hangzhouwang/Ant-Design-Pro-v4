@@ -1,9 +1,17 @@
-/**
- * request 网络请求工具
- * 更详细的 api 文档: https://github.com/umijs/umi-request
+/*
+ * @Author: lixiaoyun
+ * @Company: http://hangzhou.com.cn
+ * @Github: http://github.com/siaoynli
+ * @Date: 2020-07-29 14:09:32
+ * @LastEditors: lixiaoyun
+ * @LastEditTime: 2020-07-30 17:11:11
+ * @Description: 请求
  */
+
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import LocalStore from '@/utils/LocalStore';
+import { history } from 'umi';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -31,11 +39,17 @@ const errorHandler = (error: { response: Response }): Response => {
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
-
     notification.error({
       message: `请求错误 ${status}: ${url}`,
       description: errorText,
     });
+
+    // 如果是401错误，直接清空token ,并调到登录界面
+    if (status === 401) {
+      // LocalStore.remove('token');
+      // LocalStore.remove('authority');
+      // history.replace('/login');
+    }
   } else if (!response) {
     notification.error({
       description: '您的网络发生异常，无法连接服务器',
@@ -45,12 +59,22 @@ const errorHandler = (error: { response: Response }): Response => {
   return response;
 };
 
+const token = LocalStore.get('token');
+
+console.log('token:', token);
+
 /**
  * 配置request请求时的默认参数
+ * https://github.com/umijs/umi-request/blob/master/README_zh-CN.md
  */
 const request = extend({
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+  prefix: '/api/v1',
+  timeout: 1000, // 超时
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
 });
 
 export default request;

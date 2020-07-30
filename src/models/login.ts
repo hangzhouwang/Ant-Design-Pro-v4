@@ -1,17 +1,19 @@
-import { stringify } from 'querystring';
-import { history, Reducer, Effect } from 'umi';
+import { history, Reducer, Effect, Subscription } from 'umi';
 
 import { fakeAccountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
+import { message } from 'antd';
+import LocalStore from '@/utils/LocalStore';
+import { stringify } from 'qs';
 
 export interface StateType {
   status?: 'ok' | 'error';
-  type?: string;
-  currentAuthority?: 'user' | 'guest' | 'admin';
+  type?: 'account' | 'phone' | 'weixin' | 'dingding';
+  authority?: 'guest' | 'admin';
 }
 
-export interface LoginModelType {
+export interface ModelType {
   namespace: string;
   state: StateType;
   effects: {
@@ -21,24 +23,27 @@ export interface LoginModelType {
   reducers: {
     changeLoginStatus: Reducer<StateType>;
   };
+  subscriptions: {
+    setup: Subscription;
+  };
 }
 
-const Model: LoginModelType = {
+const Model: ModelType = {
   namespace: 'login',
-
   state: {
     status: undefined,
   },
-
   effects: {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
-      yield put({
-        type: 'changeLoginStatus',
-        payload: response,
-      });
-      // Login successfully
+
+      // 登录成功
       if (response.status === 'ok') {
+        message.success('登录成功！');
+        yield put({
+          type: 'changeLoginStatus',
+          payload: response.data,
+        });
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };
@@ -49,21 +54,24 @@ const Model: LoginModelType = {
             if (redirect.match(/^\/.*#/)) {
               redirect = redirect.substr(redirect.indexOf('#') + 1);
             }
-          } else {
-            window.location.href = '/';
-            return;
           }
         }
-        history.replace(redirect || '/');
+        setTimeout(() => {
+          window.location.href = redirect || '/';
+        }, 500);
+      }
+      if (response.status === 'error') {
+        message.error(response.message);
       }
     },
-
     logout() {
       const { redirect } = getPageQuery();
-      // Note: There may be security issues, please note
-      if (window.location.pathname !== '/user/login' && !redirect) {
+
+      if (window.location.pathname !== '/login' && !redirect) {
+        LocalStore.remove('token');
+        LocalStore.remove('authority');
         history.replace({
-          pathname: '/user/login',
+          pathname: '/login',
           search: stringify({
             redirect: window.location.href,
           }),
@@ -74,12 +82,23 @@ const Model: LoginModelType = {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      setAuthority(payload);
       return {
         ...state,
         status: payload.status,
         type: payload.type,
       };
+    },
+  },
+  subscriptions: {
+    setup() {
+      return history.listen(({ pathname }: { pathname: string }) => {
+        if (pathname === '/login') {
+          if (LocalStore.get('token')) {
+            history.replace('/');
+          }
+        }
+      });
     },
   },
 };

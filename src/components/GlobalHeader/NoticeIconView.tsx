@@ -22,9 +22,9 @@ class GlobalHeaderRight extends Component<GlobalHeaderRightProps> {
     const { dispatch } = this.props;
 
     if (dispatch) {
-      dispatch({
+      /*  dispatch({
         type: 'global/fetchNotices',
-      });
+      }); */
     }
   }
 

@@ -7,9 +7,10 @@ import { FormValue } from '@/typings';
 
 interface IProps {
   loginHandler: (values: FormValue) => void;
+  loading: boolean | undefined;
 }
 
-const LoginForm: FC<IProps> = ({ loginHandler }) => {
+const LoginForm: FC<IProps> = ({ loginHandler, loading }) => {
   const onFinish = (values: FormValue) => {
     loginHandler({ ...values, type: 'account' });
   };
@@ -40,7 +41,13 @@ const LoginForm: FC<IProps> = ({ loginHandler }) => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button" block>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          block
+          loading={loading}
+        >
           登录
         </Button>
       </Form.Item>

@@ -4,8 +4,8 @@
  * @Github: http://github.com/siaoynli
  * @Date: 2020-07-30 10:36:50
  * @LastEditors: lixiaoyun
- * @LastEditTime: 2020-07-30 10:40:01
- * @Description:
+ * @LastEditTime: 2020-07-30 14:28:47
+ * @Description: 存储
  */
 
 import { message } from 'antd';
@@ -29,9 +29,9 @@ class LocalStore {
     }
   }
 
-  public static get(key: string): string | null {
+  public static get(key: string): string {
     if (!store) {
-      return null;
+      return '';
     }
     return store.getItem(key);
   }

@@ -27,6 +27,7 @@ export default defineConfig({
     {
       path: '/',
       component: '../layouts/BlankLayout',
+
       routes: [
         {
           path: '/login',
@@ -67,7 +68,7 @@ export default defineConfig({
           path: '/',
           component: '../layouts/BasicLayout',
           Routes: ['src/pages/Authorized'],
-          authority: ['admin', 'user'],
+          authority: ['admin'],
           routes: [
             {
               path: '/',

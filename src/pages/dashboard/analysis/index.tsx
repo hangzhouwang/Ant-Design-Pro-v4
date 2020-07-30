@@ -46,9 +46,9 @@ class Analysis extends Component<AnalysisProps, AnalysisState> {
   componentDidMount() {
     const { dispatch } = this.props;
     this.reqRef = requestAnimationFrame(() => {
-      dispatch({
+      /*  dispatch({
         type: 'dashboardAndanalysis/fetch',
-      });
+      }); */
     });
   }
 
