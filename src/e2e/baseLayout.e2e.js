@@ -25,7 +25,7 @@ function formatter(routes, parentPath = '') {
 beforeEach(async () => {
   await page.goto(`${BASE_URL}`);
   await page.evaluate(() => {
-    localStorage.setItem('antd-pro-authority', '["admin"]');
+    localStorage.setItem('authority', '["admin"]');
   });
 });
 

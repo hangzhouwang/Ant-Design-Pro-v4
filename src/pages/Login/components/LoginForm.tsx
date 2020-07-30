@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Form, Input, Button, Tooltip } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import './index.less';
+import { FormValue } from '@/typings';
 
-const LoginForm = () => {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+interface IProps {
+  loginHandler: (values: FormValue) => void;
+}
+
+const LoginForm: FC<IProps> = ({ loginHandler }) => {
+  const onFinish = (values: FormValue) => {
+    loginHandler({ ...values, type: 'account' });
   };
 
   return (

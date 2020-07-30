@@ -4,21 +4,16 @@
  * @Github: http://github.com/siaoynli
  * @Date: 2020-07-29 15:11:03
  * @LastEditors: lixiaoyun
- * @LastEditTime: 2020-07-29 17:31:29
+ * @LastEditTime: 2020-07-30 11:25:23
  * @Description:
  */
 
-import request from 'umi-request';
+import request from '@/utils/request';
 
-export interface LoginParamsType {
-  userName: string;
-  password: string;
-  mobile: string;
-  captcha: string;
-}
+import { LoginParamsType, ILogin, ISystemInfo } from './data';
 
 export async function fakeAccountLogin(params: LoginParamsType) {
-  return request('/api/login/account', {
+  return request<ILogin>('/api/v1/login/account', {
     method: 'POST',
     data: params,
   });
@@ -29,5 +24,5 @@ export async function getFakeCaptcha(mobile: string) {
 }
 
 export async function getSystemInfo() {
-  return request(`/api/v1/system/info`);
+  return request<ISystemInfo>(`/api/v1/system/info`);
 }
